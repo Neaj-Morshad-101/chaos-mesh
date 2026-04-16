@@ -71,6 +71,45 @@ INSERT INTO t VALUES (1, 'after-chaos-replication-latency');
 ```
 
 * **`network-partition-primary.yaml`**: Isolates the primary from replicas to test split-brain prevention.
+
+befor chaos:
+sqlserver-ha-cluster-0  primary
+sqlserver-ha-cluster-1  secondary
+sqlserver-ha-cluster-2  secondary
+
+after chaos:
+sqlserver-ha-cluster-0  primary
+sqlserver-ha-cluster-1  primary
+sqlserver-ha-cluster-2  secondary
+
+sqlserver-ha-cluster-0:
+```bash
+       1 PRIMARY                                                      890635E0-7979-491C-9CAB-61A27FA57E25 F961FA40-BDBD-211D-2E41-D377BF3CE482 HEALTHY                                                      CONNECTED                                                    ONLINE                                                      
+       0 SECONDARY                                                    73AE0691-9870-4F86-A5BC-2FAFF65EA1F0 F961FA40-BDBD-211D-2E41-D377BF3CE482 NOT_HEALTHY                                                  DISCONNECTED                                                 NULL                                                        
+       0 SECONDARY                                                    16E06FD7-6C65-4F09-86EE-68E67CE3790D F961FA40-BDBD-211D-2E41-D377BF3CE482 NOT_HEALTHY                                                  DISCONNECTED                                                 NULL                                                        
+
+(3 rows affected)
+1> use agdb;
+2> go
+Msg 988, Level 14, State 1, Server sqlserver-ha-cluster-0, Line 1
+Unable to access database 'agdb' because it lacks a quorum of nodes for high availability. Try the operation again later.
+1> 
+```
+
+sqlserver-ha-cluster-1: 
+```bash
+is_local role_desc                                                    replica_id                           group_id                             synchronization_health_desc                                  connected_state_desc                                         operational_state_desc
+-------- ------------------------------------------------------------ ------------------------------------ ------------------------------------ ------------------------------------------------------------ ------------------------------------------------------------ ------------------------------------------------------------
+       0 SECONDARY                                                    890635E0-7979-491C-9CAB-61A27FA57E25 F961FA40-BDBD-211D-2E41-D377BF3CE482 NOT_HEALTHY                                                  DISCONNECTED                                                 NULL                                                        
+       1 PRIMARY                                                      73AE0691-9870-4F86-A5BC-2FAFF65EA1F0 F961FA40-BDBD-211D-2E41-D377BF3CE482 HEALTHY                                                      CONNECTED                                                    ONLINE                                                      
+       0 SECONDARY                                                    16E06FD7-6C65-4F09-86EE-68E67CE3790D F961FA40-BDBD-211D-2E41-D377BF3CE482 HEALTHY                                                      CONNECTED                                                    NULL   
+(3 rows affected)
+```
+
+
+DB is Critical <-> NotReady because of two primary  (one is healthy with quorum, another is unhealthy without quorum). Only qurum primary taking writes. 
+We need to update replica role based on quorum, and update svc label in this schenario.
+
 * **`io-latency-primary.yaml`**: Simulates a slow disk on the primary pod.
 * **`stress-cpu-primary.yaml`**: Injects high CPU load on the primary.
 * **`stress-memory-replica.yaml`**: Injects high memory load on a replica to test OOMKilled recovery.
