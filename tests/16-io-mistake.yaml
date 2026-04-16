@@ -1,0 +1,36 @@
+# database went into not ready state due to io fault injection on primary
+# but existing connections are okay and we still can do read/write
+# so this is expected behavior from our end, as primary is running, we don't do the failover
+# database stays in not ready state even after chaos is stopped
+apiVersion: chaos-mesh.org/v1alpha1
+kind: IOChaos
+metadata:
+  name: mssql-primary-io-mistake
+  namespace: chaos-mesh
+spec:
+  action: mistake
+  mode: one
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+      "kubedb.com/role": "primary"
+  volumePath: /var/pv
+  path: /var/pv/data/**/*
+  mistake:
+    filling: random
+    maxOccurrences: 10
+    maxLength: 100
+  percent: 50
+  duration: "5m"
+  containerNames:
+    - postgres
+
+# E0117 05:10:38.087727       1 ha_postgres.go:414] Failed while trying to update wal position in mssql-coordinator. Error : Failed on query string for primary wal position: mssql: invalid memory alloc request size 16655195429364826112
+# E0117 05:10:38.093034       1 ha_postgres.go:421] failed to check primary pod is running, err: Failed to run QueryString mssql_is_in_recovery: mssql: invalid memory alloc request size 16655195429364826112
+# E0117 05:10:39.097766       1 ha_postgres.go:414] Failed while trying to update wal position in mssql-coordinator. Error : Failed on query string for primary wal position: mssql: invalid memory alloc request size 16655195429364826112
+# I0117 05:10:39.392366       1 health.go:351] trying to check mount point health using df -P | grep /var/pv
+# I0117 05:10:39.414617       1 server.go:581] psql failed, err: psql command failed: exit status 2, output: , checking process...
+# I0117 05:10:39.531289       1 server.go:586] Primary is alive (postgres process is running)
+# E0117 05:10:40.101029       1 ha_postgres.go:414] Failed while trying to update wal position in mssql-coordinator. Error : Failed on query string for primary wal position: mssql: invalid memory alloc request size 16655195429364826112

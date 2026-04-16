@@ -1,0 +1,24 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: IOChaos
+metadata:
+  name: mssql-io-mistake-zero-fill
+  namespace: chaos-mesh
+spec:
+  action: mistake
+  mode: one
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+      "kubedb.com/role": "primary"
+  volumePath: /var/pv
+  path: /var/pv/data/**/*
+  mistake:
+    filling: zero
+    maxOccurrences: 10
+    maxLength: 100
+  percent: 50
+  duration: "5m"
+  containerNames:
+    - postgres

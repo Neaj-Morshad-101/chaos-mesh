@@ -1,7 +1,7 @@
 apiVersion: kubedb.com/v1alpha2
 kind: MSSQLServer
 metadata:
-  name: sqlserver-ha-cluster
+  name: sqlserver-ag-cluster-tls
   namespace: demo
 spec:
   version: "2025-cu0"

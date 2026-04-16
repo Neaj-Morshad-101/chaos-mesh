@@ -1,0 +1,25 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: mssql-packet-loss-replica
+  namespace: chaos-mesh
+spec:
+  action: loss
+  mode: one
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+      "kubedb.com/role": "secondary"
+  target:
+    mode: all
+    selector:
+      namespaces:
+        - demo
+      labelSelectors:
+        "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+  loss:
+    loss: "100"
+    correlation: "50"
+  duration: "5m"

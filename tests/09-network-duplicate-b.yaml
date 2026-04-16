@@ -1,0 +1,24 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: mssql-duplicate-packets-all
+  namespace: chaos-mesh
+spec:
+  action: duplicate
+  mode: all
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+  target:
+    mode: all
+    selector:
+      namespaces:
+        - demo
+      labelSelectors:
+        "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+  duplicate:
+    duplicate: "50"
+    correlation: "50"
+  duration: "3m"

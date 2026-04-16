@@ -1,0 +1,22 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: IOChaos
+metadata:
+  name: mssql-io-attr-override-partial
+  namespace: chaos-mesh
+spec:
+  action: attrOverride
+  mode: one
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+      "kubedb.com/role": "primary"
+  volumePath: /var/pv
+  path: /var/pv/data/**/*
+  attr:
+    perm: 444
+  percent: 50
+  duration: "5m"
+  containerNames:
+    - postgres

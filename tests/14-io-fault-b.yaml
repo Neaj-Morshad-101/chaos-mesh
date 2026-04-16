@@ -1,0 +1,20 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: IOChaos
+metadata:
+  name: mssql-io-fault-all
+  namespace: chaos-mesh
+spec:
+  action: fault
+  mode: all
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+  volumePath: /var/pv
+  path: /var/pv/data/**/*
+  errno: 5
+  percent: 25
+  duration: "2m"
+  containerNames:
+    - postgres

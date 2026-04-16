@@ -1,0 +1,20 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: IOChaos
+metadata:
+  name: mssql-io-latency-all
+  namespace: chaos-mesh
+spec:
+  action: latency
+  mode: all
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+  volumePath: /var/pv
+  path: /var/pv/data/**/*
+  delay: "200ms"
+  percent: 100
+  duration: "3m"
+  containerNames:
+    - postgres

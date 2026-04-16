@@ -1,0 +1,17 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: mssql-memory-stress-all
+  namespace: chaos-mesh
+spec:
+  mode: all
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+  stressors:
+    memory:
+      workers: 1
+      size: "400MB"
+  duration: "5m"

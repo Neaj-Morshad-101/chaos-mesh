@@ -1,0 +1,19 @@
+# apiVersion: chaos-mesh.org/v1alpha1
+# kind: IOChaos
+# metadata:
+#   name: mssql-primary-io-latency
+#   namespace: chaos-mesh
+# spec:
+#   action: latency
+#   mode: one
+#   selector:
+#     namespaces:
+#       - demo
+#     labelSelectors:
+#       "app.kubernetes.io/instance": "sqlserver-ag-cluster"
+#       "kubedb.com/role": "primary"
+#   volumePath: "/var/pv/data"
+#   path: "/**"
+#   delay: "100ms"
+#   percent: 100
+#   duration: "3m"
