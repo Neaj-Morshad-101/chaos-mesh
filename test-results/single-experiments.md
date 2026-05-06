@@ -110,7 +110,33 @@ is_local role_desc                                                    replica_id
 DB is Critical <-> NotReady because of two primary  (one is healthy with quorum, another is unhealthy without quorum). Only qurum primary taking writes. 
 We need to update replica role based on quorum, and update svc label in this schenario.
 
+
+
+
+
+
+
+
 * **`io-latency-primary.yaml`**: Simulates a slow disk on the primary pod.
+fail: (db + raft issue, SQL server is down but coordinator/scrip is not making it up (waiting 15m), raft is not electing new leader)?
+
+SqlState HY000, Unspecified error occurred on SQL Server. Connection may have been terminated by the server.
+Msg 9001, Level 21, State 4, Server sqlserver-ag-cluster-0, Line 1
+The log for database 'agdb' is not available. Check the operating system error log for related error messages. Resolve any errors and restart the database.
+HResult 0x254, Level 21, State 1
+Cannot continue the execution because the session is in the kill state.
+mssql@sqlserver-ag-cluster-0:/$ 
+
+
+primary is shut down, and other two replicas are not healthy and not synchronizing. 
+no failover. 
+but primary is not get back to normal state.
+DB stays in NotReady state.
+
+
+
 * **`stress-cpu-primary.yaml`**: Injects high CPU load on the primary.
+passed: not failover, read, write ok.
+
 * **`stress-memory-replica.yaml`**: Injects high memory load on a replica to test OOMKilled recovery.
 * **`dns-error-from-client.yaml`**: Simulates DNS resolution failures from the client pod to the database service.
