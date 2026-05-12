@@ -1,14 +1,16 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: PodChaos
 metadata:
-  name: pg-primary-pod-kill
+  name: ms-primary-pod-kill
   namespace: chaos-mesh
 spec:
   action: pod-kill
-  mode: all
+  mode: one
   selector:
     namespaces:
       - demo
     labelSelectors:
-      "app.kubernetes.io/component": "database"
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
       "kubedb.com/role": "primary"
+  gracePeriod: 0
+  duration: "30s"
