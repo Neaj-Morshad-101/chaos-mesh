@@ -1,7 +1,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: StressChaos
 metadata:
-  name: pg-primary-cpu-stress
+  name: ms-primary-cpu-stress
   namespace: chaos-mesh
 spec:
   mode: all

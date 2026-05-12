@@ -6,7 +6,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: IOChaos
 metadata:
-  name: pg-primary-io-attr-override
+  name: ms-primary-io-attr-override
   namespace: chaos-mesh
 spec:
   action: attrOverride

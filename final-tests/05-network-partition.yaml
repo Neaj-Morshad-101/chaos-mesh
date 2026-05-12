@@ -1,7 +1,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: NetworkChaos
 metadata:
-  name: pg-primary-network-partition
+  name: ms-primary-network-partition
   namespace: chaos-mesh
 spec:
   action: partition

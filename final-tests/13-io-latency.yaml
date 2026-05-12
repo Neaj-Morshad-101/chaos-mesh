@@ -5,7 +5,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: IOChaos
 metadata:
-  name: pg-primary-io-latency 
+  name: ms-primary-io-latency 
   namespace: chaos-mesh
 spec:
   action: latency

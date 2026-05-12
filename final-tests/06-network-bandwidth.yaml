@@ -1,7 +1,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: NetworkChaos
 metadata:
-  name: pg-primary-bandwidth-limit
+  name: ms-primary-bandwidth-limit
   namespace: chaos-mesh
 spec:
   action: bandwidth

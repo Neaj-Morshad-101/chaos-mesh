@@ -1,7 +1,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: NetworkChaos
 metadata:
-  name: pg-primary-packet-corrupt
+  name: ms-primary-packet-corrupt
   namespace: chaos-mesh
 spec:
   action: corrupt

@@ -1,7 +1,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: PodChaos
 metadata:
-  name: pg-kill-postgres-process
+  name: ms-kill-postgres-process
   namespace: chaos-mesh
 spec:
   action: container-kill

@@ -5,7 +5,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: IOChaos
 metadata:
-  name: pg-primary-io-mistake
+  name: ms-primary-io-mistake
   namespace: chaos-mesh
 spec:
   action: mistake
@@ -28,10 +28,10 @@ spec:
   percent: 100
   duration: 2m
 
-# E0117 05:10:38.087727       1 ha_postgres.go:414] Failed while trying to update wal position in pg-coordinator. Error : Failed on query string for primary wal position: pq: invalid memory alloc request size 16655195429364826112
-# E0117 05:10:38.093034       1 ha_postgres.go:421] failed to check primary pod is running, err: Failed to run QueryString pg_is_in_recovery: pq: invalid memory alloc request size 16655195429364826112
-# E0117 05:10:39.097766       1 ha_postgres.go:414] Failed while trying to update wal position in pg-coordinator. Error : Failed on query string for primary wal position: pq: invalid memory alloc request size 16655195429364826112
+# E0117 05:10:38.087727       1 ha_postgres.go:414] Failed while trying to update wal position in ms-coordinator. Error : Failed on query string for primary wal position: pq: invalid memory alloc request size 16655195429364826112
+# E0117 05:10:38.093034       1 ha_postgres.go:421] failed to check primary pod is running, err: Failed to run QueryString ms_is_in_recovery: pq: invalid memory alloc request size 16655195429364826112
+# E0117 05:10:39.097766       1 ha_postgres.go:414] Failed while trying to update wal position in ms-coordinator. Error : Failed on query string for primary wal position: pq: invalid memory alloc request size 16655195429364826112
 # I0117 05:10:39.392366       1 health.go:351] trying to check mount point health using df -P | grep /var/pv
 # I0117 05:10:39.414617       1 server.go:581] psql failed, err: psql command failed: exit status 2, output: , checking process...
 # I0117 05:10:39.531289       1 server.go:586] Primary is alive (postgres process is running)
-# E0117 05:10:40.101029       1 ha_postgres.go:414] Failed while trying to update wal position in pg-coordinator. Error : Failed on query string for primary wal position: pq: invalid memory alloc request size 16655195429364826112
+# E0117 05:10:40.101029       1 ha_postgres.go:414] Failed while trying to update wal position in ms-coordinator. Error : Failed on query string for primary wal position: pq: invalid memory alloc request size 16655195429364826112

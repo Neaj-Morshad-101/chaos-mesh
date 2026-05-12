@@ -1,7 +1,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: StressChaos
 metadata:
-  name: pg-replica-memory-stress
+  name: ms-replica-memory-stress
   namespace: chaos-mesh
 spec:
   mode: all

@@ -1,7 +1,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: PodChaos
 metadata:
-  name: pg-cluster-all-pods-kill
+  name: ms-cluster-all-pods-kill
   namespace: chaos-mesh
 spec:
   action: pod-kill

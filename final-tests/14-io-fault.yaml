@@ -6,7 +6,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: IOChaos
 metadata:
-  name: pg-primary-io-fault
+  name: ms-primary-io-fault
   namespace: chaos-mesh
 spec:
   action: fault

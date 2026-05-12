@@ -1,7 +1,7 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: DNSChaos
 metadata:
-  name: pg-primary-dns-error
+  name: ms-primary-dns-error
   namespace: chaos-mesh
 spec:
   action: error
