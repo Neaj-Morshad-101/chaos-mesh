@@ -18,21 +18,6 @@ spec:
       kind: Issuer
       apiGroup: "cert-manager.io"
     clientTLS: false
-  monitor:
-    agent: prometheus.io/operator
-    prometheus:
-      exporter:
-        port: 9399
-        resources:
-          limits:
-            memory: 512Mi
-          requests:
-            cpu: 200m
-            memory: 256Mi
-      serviceMonitor:
-        labels:
-          release: prometheus
-        interval: 10s
   podTemplate:
     spec:
       containers:
@@ -42,27 +27,13 @@ spec:
               value: "Y"
             - name: MSSQL_PID
               value: Evaluation
-          resources:
-            requests:
-              cpu: "1.5"
-        - name: mssql-coordinator
-          env:
-            - name: GODEBUG
-              value: "x509negativeserial=1"
-          resources:
-            limits:
-              memory: 256Mi
-            requests:
-              cpu: 200m
-              memory: 256Mi
   storageType: Durable
   storage:
-    # storageClassName: "longhorn"
     accessModes:
       - ReadWriteOnce
     resources:
       requests:
-        storage: 10Gi
+        storage: 50Gi
   deletionPolicy: WipeOut
 
 ---
