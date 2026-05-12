@@ -4,16 +4,20 @@ metadata:
   name: ms-primary-oom
   namespace: chaos-mesh
 spec:
-  mode: all
+  mode: one
   selector:
     namespaces:
       - demo
     labelSelectors:
-      "app.kubernetes.io/component": "database"
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
       "kubedb.com/role": "primary"
   stressors:
     memory:
       workers: 1
-      size: "10GB"
-      oomScoreAdj: -1000
-  duration: 2m
+      size: "5000MB"  # Exceed the 4Gi limit to trigger OOM
+  duration: 10m
+
+#
+#Issues:
+#  - No failover happened when the primary pod was oomkilled. The primary pod was restarted, but the secondary pods did not take over as the new primary. This indicates that the failover mechanism did not work as expected when the primary pod was killed due to an OOM condition.
+#  - The primary was working fine after the OOM kill, which is unexpected. This suggests that the pod was able to recover quickly without triggering a failover. This could be due to the way the OOM kill was implemented in the chaos experiment, or it could indicate that the primary pod has some resilience to OOM conditions that allows it to continue functioning even when under memory stress.
