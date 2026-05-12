@@ -1,17 +1,17 @@
 apiVersion: chaos-mesh.org/v1alpha1
 kind: PodChaos
 metadata:
-  name: ms-kill-postgres-process
+  name: ms-kill-sqlservr-process
   namespace: chaos-mesh
 spec:
   action: container-kill
-  mode: all
+  mode: one
   selector:
     namespaces:
       - demo
     labelSelectors:
-      "app.kubernetes.io/component": "database"
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
       "kubedb.com/role": "primary"
   containerNames:
     - mssql
-  duration: "2m"
+  duration: "30s"
