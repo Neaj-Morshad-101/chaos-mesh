@@ -1,0 +1,19 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: pg-primary-oom
+  namespace: chaos-mesh
+spec:
+  mode: all
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/component": "database"
+      "kubedb.com/role": "primary"
+  stressors:
+    memory:
+      workers: 1
+      size: "10GB"
+      oomScoreAdj: -1000
+  duration: 2m

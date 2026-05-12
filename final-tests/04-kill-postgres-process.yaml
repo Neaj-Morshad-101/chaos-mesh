@@ -1,0 +1,17 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PodChaos
+metadata:
+  name: pg-kill-postgres-process
+  namespace: chaos-mesh
+spec:
+  action: container-kill
+  mode: all
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/component": "database"
+      "kubedb.com/role": "primary"
+  containerNames:
+    - mssql
+  duration: "2m"

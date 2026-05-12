@@ -1,0 +1,26 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: pg-primary-packet-duplicate
+  namespace: chaos-mesh
+spec:
+  action: duplicate
+  mode: all
+  selector:
+    namespaces:
+      - demo
+    labelSelectors:
+      "app.kubernetes.io/component": "database"
+      "kubedb.com/role": "primary"
+  target:
+    mode: all
+    selector:
+      namespaces:
+        - demo
+      labelSelectors:
+        "app.kubernetes.io/component": "database"
+  duplicate:
+    duplicate: "100"
+    correlation: "100"
+  duration: "2m"
+  direction: both
