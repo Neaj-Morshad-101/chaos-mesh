@@ -6,5 +6,5 @@ helm upgrade -i chaos-mesh chaos-mesh/chaos-mesh \
     --set dashboard.create=true \
     --set dashboard.securityMode=false \
     --set chaosDaemon.runtime=containerd \
-    --set chaosDaemon.socketPath=/run/k3s/containerd/containerd.sock \
+    --set chaosDaemon.socketPath=/run/containerd/containerd.sock \
     --set chaosDaemon.privileged=true
