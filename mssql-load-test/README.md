@@ -1,5 +1,6 @@
 # SQL Server High Load Test Client
-A high-concurrency load testing client for **Microsoft SQL Server**, inspired by the [PostgreSQL high-write-load-client](https://github.com/souravbiswassanto/high-write-load-client).
+A high-concurrency load testing client for **Microsoft SQL Server**.
+
 ## Features
 - **Mixed workload**: Configurable % of Reads, Inserts, and Updates
 - **Concurrent workers**: Supports from a few to thousands of goroutines
