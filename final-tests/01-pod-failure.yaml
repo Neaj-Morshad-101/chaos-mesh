@@ -12,4 +12,4 @@ spec:
     labelSelectors:
       "app.kubernetes.io/instance": "sqlserver-ag-cluster"
       "kubedb.com/role": "primary"
-  duration: "2m"
+  duration: "5m"

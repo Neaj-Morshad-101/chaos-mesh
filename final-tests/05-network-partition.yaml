@@ -5,7 +5,7 @@ metadata:
   namespace: chaos-mesh
 spec:
   action: partition
-  mode: all
+  mode: one
   selector:
     namespaces:
       - demo
@@ -21,4 +21,4 @@ spec:
         "app.kubernetes.io/component": "database"
         "kubedb.com/role": "secondary"
   direction: both
-  duration: "3m"
+  duration: "4m"

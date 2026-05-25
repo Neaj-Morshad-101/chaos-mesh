@@ -14,4 +14,4 @@ spec:
       "kubedb.com/role": "primary"
   containerNames:
     - mssql
-  duration: "30s"
+  duration: "60s"
