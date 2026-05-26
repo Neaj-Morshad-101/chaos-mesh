@@ -5,12 +5,12 @@ metadata:
   namespace: chaos-mesh
 spec:
   action: corrupt
-  mode: all
+  mode: one
   selector:
     namespaces:
       - demo
     labelSelectors:
-      "app.kubernetes.io/component": "database"
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
       "kubedb.com/role": "primary"
   target:
     mode: all
@@ -18,9 +18,9 @@ spec:
       namespaces:
         - demo
       labelSelectors:
-        "app.kubernetes.io/component": "database"
+        "app.kubernetes.io/instance": "sqlserver-ag-cluster"
   corrupt:
-    corrupt: "100"
-    correlation: "100"
-  duration: "2m"
+    corrupt: "50"
+    correlation: "25"
+  duration: "4m"
   direction: both

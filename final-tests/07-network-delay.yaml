@@ -5,12 +5,12 @@ metadata:
   namespace: chaos-mesh
 spec:
   action: delay
-  mode: all
+  mode: one
   selector:
     namespaces:
       - demo
     labelSelectors:
-      "app.kubernetes.io/component": "database"
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
       "kubedb.com/role": "primary"
   target:
     mode: all
@@ -18,10 +18,10 @@ spec:
       namespaces:
         - demo
       labelSelectors:
-        "app.kubernetes.io/component": "database"
+        "app.kubernetes.io/instance": "sqlserver-ag-cluster"
   delay:
-    latency: 2000ms
-    correlation: '100'
-    jitter: 0ms
-  direction: to
-  duration: 2m
+    latency: "500ms"
+    jitter: "100ms"
+    correlation: "50"
+  duration: "3m"
+  direction: both

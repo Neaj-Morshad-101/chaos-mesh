@@ -4,12 +4,12 @@ metadata:
   name: ms-primary-time-offset
   namespace: chaos-mesh
 spec:
-  mode: all
+  mode: one
   selector:
     namespaces:
       - demo
     labelSelectors:
-      "app.kubernetes.io/component": "database"
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
       "kubedb.com/role": "primary"
   timeOffset: "-2h"
   clockIds:

@@ -5,12 +5,12 @@ metadata:
   namespace: chaos-mesh
 spec:
   action: bandwidth
-  mode: all
+  mode: one
   selector:
     namespaces:
       - demo
     labelSelectors:
-      "app.kubernetes.io/component": "database"
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
       "kubedb.com/role": "primary"
   target:
     mode: all
@@ -18,10 +18,10 @@ spec:
       namespaces:
         - demo
       labelSelectors:
-        "app.kubernetes.io/component": "database"
+        "app.kubernetes.io/instance": "sqlserver-ag-cluster"
   bandwidth:
-    rate: '1bps'
-    limit: 20971520
+    rate: "1mbps"
+    limit: 20000
     buffer: 10000
   direction: both
   duration: "2m"

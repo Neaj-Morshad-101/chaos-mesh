@@ -5,12 +5,12 @@ metadata:
   namespace: chaos-mesh
 spec:
   action: loss
-  mode: all
+  mode: one
   selector:
     namespaces:
       - demo
     labelSelectors:
-      "app.kubernetes.io/component": "database"
+      "app.kubernetes.io/instance": "sqlserver-ag-cluster"
       "kubedb.com/role": "primary"
   target:
     mode: all
@@ -18,9 +18,9 @@ spec:
       namespaces:
         - demo
       labelSelectors:
-        "app.kubernetes.io/component": "database"
+        "app.kubernetes.io/instance": "sqlserver-ag-cluster"
   loss:
-    loss: '100'
-    correlation: '100'
-  direction: to
-  duration: 2m
+    loss: "100"
+    correlation: "100"
+  duration: "3m"
+  direction: both
